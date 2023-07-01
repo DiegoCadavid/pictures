@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  editor-squiggler {
+    @apply hidden;
+  }
+}
+
+@layer components {
+
+  /* AVATARS */
+  .avatar {
+   @apply rounded-full h-16 w-16; 
+  }
+
+  .avatar-small {
+    @apply h-12 w-12;
+  }
+
+  /* BUTTONS */
+  .btn {
+    @apply py-3 px-6;
+    @apply rounded-2xl;
+  }
+
+  .btn-primary {
+    @apply bg-red-500 text-white hover:bg-red-700 disabled:hover:bg-red-500/70 disabled:bg-red-500/70 ;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent hover:bg-zinc-100 hover:text-red-500 disabled:hover:bg-transparent disabled:hover:text-current;
+  }
+
+  .btn-muted {
+    @apply bg-black text-white disabled:bg-zinc-600 
+  }
+
+  .btn-light {
+    @apply bg-transparent hover:bg-zinc-50/20 text-white ;
+  }
+
+  .btn-icon {
+    @apply rounded-2xl;
+    @apply flex justify-center items-center;
+    @apply w-12 h-12;
+  }
+
+  /* INPUTS */
+  .input-text {
+    @apply w-full;
+    @apply bg-zinc-200 outline-none;
+    @apply px-6 py-3;
+    @apply rounded-2xl;
+    @apply placeholder:capitalize;
+  }
+
+
+}
