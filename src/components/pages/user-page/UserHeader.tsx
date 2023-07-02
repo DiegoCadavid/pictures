@@ -53,7 +53,7 @@ const UserHeader = ({ userImage, userName, userId, userBio }: Props) => {
         </div>
 
         {userName && userId && (
-          <div className="absolute -bottom-12 right-0">
+          <div className="absolute -bottom-12 md:right-0 right-4 ">
             <Follow userId={userId} />
           </div>
         )}

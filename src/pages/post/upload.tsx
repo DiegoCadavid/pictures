@@ -135,8 +135,8 @@ const UploadPage = ({}) => {
       <Layout>
         {status === "loading" && <UploadSkeleton />}
         {status === "authenticated" && (
-          <main className="mx-auto w-full max-w-5xl pt-4">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4">
+          <main className="mx-auto w-full max-w-5xl pt-4 container">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4 flex-col md:flex-row">
               <Dropzone
                 handleFiles={handleFiles}
                 image={image}
@@ -146,6 +146,7 @@ const UploadPage = ({}) => {
                 <UploadUser
                   image={session?.user.image as string | null}
                   name={session?.user.name as string}
+                  id={session?.user.id as string}
                 />
 
                 {errors.root && (

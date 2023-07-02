@@ -44,7 +44,7 @@ const PostPage = ({ id }: Props) => {
       <Layout>
         <main className="">
           <div className="relative">
-            <div className="relative mx-auto flex max-w-4xl gap-4 py-12">
+            <div className="relative mx-auto flex flex-col md:flex-row max-w-4xl gap-4 py-4 md:py-12 container">
               {/* image */}
               {postIdQuery.data && (
                 <PostImage
@@ -77,11 +77,11 @@ const PostPage = ({ id }: Props) => {
               )}
             </div>
             {/* Background */}
-            <div className="absolute inset-y-0 left-0 right-[62.5%] -z-0 bg-zinc-200" />
+            <div className=" hidden md:block absolute inset-y-0 left-0 right-1/2 -translate-x-52 -z-0 bg-zinc-200" />
             {/* Shadow button */}
             <div className="absolute inset-x-0 bottom-0 z-0 h-12 bg-gradient-to-t from-black/10" />
           </div>
-          <div className="container mx-auto mt-12">
+          <div className="container mx-auto mt-6">
             {!postAllQuery.isLoading && postAllQuery.data && (
               <CardColumnsContainer
                 posts={postAllQuery.data.filter((post) => post.id !== id)}

@@ -33,6 +33,17 @@ export const userRouter = createTRPCRouter({
   follow: protectedProcedure
     .input(z.string().min(1))
     .mutation(async ({ ctx, input }) => {
+      const existFollow = await ctx.prisma.follow.findFirst({
+        where: {
+          byUserId: ctx.session.user.id,
+          toUserId: input,
+        },
+      });
+
+      if (existFollow) {
+        return existFollow;
+      }
+
       const result = await ctx.prisma.follow.create({
         data: {
           byUserId: ctx.session.user.id,

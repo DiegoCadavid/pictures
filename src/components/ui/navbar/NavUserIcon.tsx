@@ -18,7 +18,7 @@ const NavUserIcon = ({ image, name, id }: Props) => {
   };
 
   return (
-    <div className="relative h-12 w-12 rounded-full ">
+    <div className="relative  h-10 w-10 rounded-full md:h-12  md:w-12 ">
       <button
         onClick={() => {
           setIsDropdownOpen(!isDropdownOpen);

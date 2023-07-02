@@ -35,7 +35,7 @@ const PostImage = ({
         placeholder="empty"
       />
 
-      <div className="absolute inset-0 hidden justify-between bg-gradient-to-b from-black/50 via-transparent p-4 group-hover:flex">
+      <div className="absolute inset-0 flex md:hidden items-end justify-between bg-gradient-to-t from-black/40 md:from-black/70 via-transparent p-4 group-hover:flex md:items-start md:bg-gradient-to-b">
         <p className="italic text-white">{tags.join(", ")} </p>
         <div className="flex gap-2">
           <button className=" btn-icon btn-light flex-shrink-0">

@@ -119,7 +119,7 @@ const Dropzone = ({ handleFiles, image, disabled }: Props) => {
           : "border-gray-400 text-gray-400 hover:border-gray-500 hover:text-gray-500"
       } ${
         !imagePreview
-          ? "max-h-[500px] rounded-2xl border-2 border-dashed"
+          ? "min-h-[300px] md:min-h-[500px] rounded-2xl border-2 border-dashed"
           : "h-fit min-h-fit "
       }`}
     >

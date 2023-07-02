@@ -1,9 +1,16 @@
+import { api } from "@/utils/api";
+
 interface Props {
   image: string | null;
   name: string;
+  id: string;
 }
 
-const UploadUser = ({ name, image }: Props) => {
+const UploadUser = ({ name, image, id }: Props) => {
+
+   const userFollowsCount = api.user.followsCountsByUserId.useQuery(id);
+
+
   return (
     <div className="mb-4 flex items-center gap-4">
       <img
@@ -13,7 +20,7 @@ const UploadUser = ({ name, image }: Props) => {
       />
       <div className="leading-tight">
         <p className="text-lg font-semibold">@{name}</p>
-        <p>13k Followers</p>
+        { userFollowsCount.isSuccess && <p>{userFollowsCount.data?._count.followers} Followers</p>}
       </div>
     </div>
   );

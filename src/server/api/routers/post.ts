@@ -201,14 +201,27 @@ export const postRouter = createTRPCRouter({
   bookmark: protectedProcedure
     .input(z.string().min(1))
     .mutation(async ({ ctx, input }) => {
-      const result = await ctx.prisma.bookmark.create({
+
+      const existBookmark = await ctx.prisma.bookmark.findFirst({
+        where: {
+          postId: input,
+          userId: ctx.session.user.id,
+        }
+      });
+
+      // Error
+      if(existBookmark) {
+        return existBookmark;
+      }
+
+      const bookmark = await ctx.prisma.bookmark.create({
         data: {
           postId: input,
           userId: ctx.session.user.id,
         },
       });
 
-      return result;
+      return bookmark;
     }),
   unBookmark: protectedProcedure
     .input(z.string().min(1))

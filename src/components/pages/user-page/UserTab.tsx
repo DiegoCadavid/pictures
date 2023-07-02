@@ -13,11 +13,9 @@ const UserTab = ({ children, href }: Props) => {
   return (
     <Link
       href={href}
-      className={
-        isActive
-          ? "border-b-2 border-b-red-400  py-2 font-bold capitalize text-red-500"
-          : "py-2  capitalize"
-      }
+      className={`py-2 capitalize  ${
+        isActive ? "border-b-2 border-b-b-2 border-b-red-400 font-bold  text-red-500": ""
+      }`}
     >
       {children}
     </Link>
