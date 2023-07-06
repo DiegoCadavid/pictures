@@ -23,7 +23,7 @@ const PostComment = ({comment}: Props) => {
 
       <div className="rounded-lg bg-zinc-200 p-3">
         <p className="flex items-center gap-2">
-          <Link href="/" className="font-medium hover:underline">
+          <Link href={`/user/${author.id}`}className="font-medium hover:underline">
             @{author.name}
           </Link>
           <span className="h-1 w-1 rounded-full bg-zinc-300"></span>
