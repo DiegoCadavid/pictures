@@ -21,7 +21,7 @@ const PostComments = ({ postId }: Props) => {
       <PostCommentsContainer
         isLoading={comments.isLoading}
         comments={[
-          ...commentsUser,
+          ...commentsUser.filter((cu) => cu.postId == postId ),
           ...(comments.data?.filter((c) => {
             return !commentsUser.map((cu) => cu.id).includes(c.id);
           }) || []),
