@@ -3,7 +3,7 @@ import Head from "next/head";
 import { api } from "@/utils/api";
 
 import Layout from "@/components/layouts/Layout";
-import PostComments from "@/components/pages/post-page/PostComments";
+import PostComments from "@/components/pages/post-page/comments/PostComments";
 import PostImage from "@/components/pages/post-page/PostImage";
 
 import PostInfo from "@/components/pages/post-page/PostInfo";
@@ -72,7 +72,7 @@ const PostPage = ({ id }: Props) => {
                         : null
                     }
                   />
-                  <PostComments />
+                  <PostComments postId={id}/>
                 </div>
               )}
             </div>

@@ -1,4 +1,4 @@
-import { type PostWithTagsAndBookmarks } from "types";
+import { type PostWithTagsAndBookmarks } from "@/types";
 import CardsColumn from "./CardsColumn";
 import divideArray from "@/utils/divideArray";
 import { useEffect, useState } from "react";

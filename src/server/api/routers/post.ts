@@ -198,19 +198,64 @@ export const postRouter = createTRPCRouter({
           };
         });
     }),
+
+  getAllComments: publicProcedure
+    .input(z.string().min(1))
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.prisma.comment.findMany({
+        where: {
+          postId: input,
+        },
+        include: {
+          author: true,
+        },
+        orderBy: {
+          responseId: "asc",
+        },
+      });
+
+      console.log(result);
+
+      return result;
+    }),
+  commentCreate: protectedProcedure
+    .input(
+      z.object({
+        post: z.string().min(1),
+        content: z.string().min(1),
+        response: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.session.user;
+      const { post, content, response } = input;
+
+      const comment = await ctx.prisma.comment.create({
+        data: {
+          postId: post,
+          authorId: user.id,
+          content,
+          responseId: response || null,
+        },
+        include:{
+          author: true
+        }
+      });
+
+      return comment;
+    }),
   bookmark: protectedProcedure
     .input(z.string().min(1))
     .mutation(async ({ ctx, input }) => {
-
       const existBookmark = await ctx.prisma.bookmark.findFirst({
         where: {
           postId: input,
           userId: ctx.session.user.id,
-        }
+        },
       });
 
       // Error
-      if(existBookmark) {
+      if (existBookmark) {
         return existBookmark;
       }
 

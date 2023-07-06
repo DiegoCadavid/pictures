@@ -32,7 +32,6 @@ model Bookmark {
     post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
-
 model Tags {
     id    String     @id @default(cuid())
     name  String     @unique
@@ -48,6 +47,20 @@ model PostTags {
     tag  Tags @relation(fields: [tagId], references: [id])
 }
 
+model Comment {
+    id         String  @id @default(cuid())
+    postId     String
+    authorId   String
+    responseId String?
+    content    String
+
+    response Comment?  @relation(fields: [responseId], references: [id], name: "response")
+    responses  Comment[] @relation(name: "response")
+    createdAt DateTime @default(now())
+
+    author User @relation(fields: [authorId], references: [id])
+    post   Post @relation(fields: [postId], references: [id])
+}
 
 model Post {
     id            String @id @default(cuid())
@@ -61,12 +74,12 @@ model Post {
 
     createdAt DateTime @default(now())
 
-    author   User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    tags     PostTags[]
-    
-    bookmarks Bookmark[]
-}
+    author User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    tags   PostTags[]
 
+    bookmarks Bookmark[]
+    comments  Comment[]
+}
 
 model Follow {
     id       String @id @default(cuid())
@@ -119,6 +132,7 @@ model User {
 
     posts     Post[]
     bookmarks Bookmark[]
+    comments  Comment[]
 }
 
 model VerificationToken {

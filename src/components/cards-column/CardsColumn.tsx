@@ -1,4 +1,4 @@
-import {type  PostWithTagsAndBookmarks } from "types";
+import {type  PostWithTagsAndBookmarks } from "@/types";
 import Card from "../card/Card";
 
 interface Props { 

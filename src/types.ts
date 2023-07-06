@@ -11,10 +11,10 @@ export interface Post {
 
 export interface User {
   id: string;
-  name: string;
-  email: string;
-  emailVerified: Date;
-  image: string;
+  name: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
   bio: string;
 }
 
@@ -24,17 +24,30 @@ export interface FollowsCount {
 }
 
 export interface UserWithFollowsCount extends User {
-  _count: FollowsCount
+  _count: FollowsCount;
 }
 
 export interface PostWithTags extends Post {
-  tags: string[]
+  tags: string[];
 }
 
 export interface PostWithBookmarks extends Post {
   bookmarks: string | null;
 }
 
-// create interface with post with tags and bookmarks
+export interface PostWithTagsAndBookmarks
+  extends PostWithTags,
+    PostWithBookmarks {}
 
-export interface PostWithTagsAndBookmarks extends PostWithTags, PostWithBookmarks {}
+export interface Comment {
+  id: string;
+  postId: string;
+  authorId: string;
+  responseId: string | null;
+  content: string;
+  createdAt: Date;
+}
+
+export interface CommentWithUser extends Comment {
+  author: User;
+}

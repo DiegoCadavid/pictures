@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type PostWithTagsAndBookmarks } from "types";
+import { type PostWithTagsAndBookmarks } from "@/types";
 import Bookmark from "../bookmark/Bookmark";
 
 const Card = ({
