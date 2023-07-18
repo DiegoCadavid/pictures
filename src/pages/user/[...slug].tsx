@@ -60,12 +60,6 @@ const UserPage = ({ name, isBookmarkPage }: Props) => {
             />
           )}
 
-          {!userQuery.data && (
-            <p className="mt-4 text-center italic text-zinc-500">
-              This user not exist
-            </p>
-          )}
-
           {userQuery.data ? (
             <div className="container mx-auto mt-4">
               <div className="mb-4 flex gap-4">
@@ -81,7 +75,7 @@ const UserPage = ({ name, isBookmarkPage }: Props) => {
               )}
             </div>
           ) : (
-            <p className="mt-4 text-center italic text-zinc-500">
+            <p className="pt-4 text-center italic text-zinc-500">
               This user not exist
             </p>
           )}

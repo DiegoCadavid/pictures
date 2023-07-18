@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { format, formatDistance, formatRelative, subDays } from "date-fns";
+import {formatDistance} from "date-fns";
 
 import { type CommentWithUser } from "@/types";
 
@@ -23,7 +23,7 @@ const PostComment = ({comment}: Props) => {
 
       <div className="rounded-lg bg-zinc-200 p-3">
         <p className="flex items-center gap-2">
-          <Link href={`/user/${author.id}`}className="font-medium hover:underline">
+          <Link href={ author.name ? `/user/${author.name}` : "#"}className="font-medium hover:underline">
             @{author.name}
           </Link>
           <span className="h-1 w-1 rounded-full bg-zinc-300"></span>
