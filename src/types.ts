@@ -1,12 +1,16 @@
-export interface Post {
-  id: string;
-  authorId: string;
-  title: string;
-  description: string;
+
+export interface PostImage {
   imageUrl: string;
   imageWidth: number;
   imageHeight: number;
   imageColorHex: string;
+}
+export interface Post extends PostImage {
+  id: string;
+  authorId: string;
+  title: string;
+  description: string;
+ 
 }
 
 export interface User {

@@ -1,21 +1,43 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { type PostWithTagsAndBookmarks } from "@/types";
 import Bookmark from "../bookmark/Bookmark";
+import { useContext } from "react";
+import postContext from "@/contexts/postContext";
 
-const Card = ({
-  imageUrl,
-  imageHeight,
-  imageWidth,
-  imageColorHex,
-  title,
-  tags,
-  id,
-  bookmarks,
-}: PostWithTagsAndBookmarks) => {
+const Card = (props: PostWithTagsAndBookmarks) => {
+  const {
+    imageUrl,
+    imageHeight,
+    imageWidth,
+    imageColorHex,
+    title,
+    tags,
+    id,
+    bookmarks,
+  } = props;
+
+  const postCtx = useContext(postContext);
+
+  const router = useRouter();
+
+  const navigate = () => {
+    postCtx?.handleImageSelect(id, {
+      imageColorHex,
+      imageHeight,
+      imageUrl,
+      imageWidth,
+    });
+
+    router.push(`/post/${id}`).catch((err) => {
+      console.log(err);
+    });
+  };
+
   return (
     <article className="group relative w-full overflow-hidden rounded-2xl">
-      <Link href={`/post/${id}`}>
+      <button onClick={navigate}>
         <Image
           src={imageUrl}
           alt="Image"
@@ -27,10 +49,10 @@ const Card = ({
           height={imageHeight}
           placeholder="empty"
         />
-      </Link>
+      </button>
 
       {/* Actions */}
-      <div className="absolute inset-0 hidden items-end bg-gradient-to-t from-black/80 via-transparent  p-4 group-hover:grid pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 hidden items-end bg-gradient-to-t from-black/80  via-transparent p-4 group-hover:grid">
         <div className="flex min-w-0 gap-2">
           <div className="flex-shrink flex-grow basis-auto overflow-hidden whitespace-nowrap text-white">
             <p className="overflow-hidden text-ellipsis font-semibold">

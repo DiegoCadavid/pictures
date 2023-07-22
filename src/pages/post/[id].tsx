@@ -8,21 +8,17 @@ import PostImage from "@/components/pages/post-page/PostImage";
 
 import PostInfo from "@/components/pages/post-page/PostInfo";
 import CardColumnsContainer from "@/components/cards-column/CardColumnsContainer";
-import getSSRHelper from "@/server/api/getSSRHelper";
 
 interface Props {
   id: string;
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.params?.id as string;
-  const helper = await getSSRHelper(ctx);
-  await helper.post.getById.prefetch(id);
 
   return {
     props: {
       id,
-      trpcState: helper.dehydrate(),
     },
   };
 };
@@ -44,21 +40,21 @@ const PostPage = ({ id }: Props) => {
       <Layout>
         <main className="">
           <div className="relative">
-            <div className="relative mx-auto flex flex-col md:flex-row max-w-4xl gap-4 py-4 md:py-12 container">
+            <div className="container relative mx-auto flex max-w-4xl flex-col gap-4 py-4 md:flex-row md:py-12">
               {/* image */}
-              {postIdQuery.data && (
-                <PostImage
-                  imageUrl={postIdQuery.data.imageUrl}
-                  imageHeight={postIdQuery.data.imageHeight}
-                  imageWidth={postIdQuery.data.imageWidth}
-                  imageColorHex={postIdQuery.data.imageColorHex}
-                  tags={postIdQuery.data.tags}
-                  bookmarks={postIdQuery.data.bookmarks}
-                  postId={id}
-                />
-              )}
+
+              <PostImage
+                postId={id}
+                imageUrl={postIdQuery.data?.imageUrl}
+                imageHeight={postIdQuery.data?.imageHeight}
+                imageWidth={postIdQuery.data?.imageWidth}
+                imageColorHex={postIdQuery.data?.imageColorHex}
+                tags={postIdQuery.data?.tags}
+                bookmarks={postIdQuery.data?.bookmarks}
+              />
+
               {/* Info - comments */}
-              {postIdQuery.data && !postIdQuery.isLoading && (
+              {(postIdQuery.data && !postIdQuery.isLoading) ? (
                 <div className="flex-1">
                   <PostInfo
                     userName={postIdQuery.data.author?.name || "Jhon"}
@@ -72,12 +68,26 @@ const PostPage = ({ id }: Props) => {
                         : null
                     }
                   />
-                  <PostComments postId={id}/>
+                  <PostComments postId={id} />
+                </div>
+              ) : (
+                <div className="flex-1">
+                  <div className="flex gap-2 items-center">
+                    <div className="h-16 w-16 animate-pulse rounded-full bg-zinc-300"></div>
+                    <div className="flex-1"> 
+                      <div className="h-4 w-full animate-pulse rounded-full bg-zinc-300"></div>
+                      <div className="h-4 w-full animate-pulse rounded-full bg-zinc-300 mt-2"></div>
+                    </div>
+                    <div className="h-12 w-24 bg-zinc-300 rounded-lg animate-pulse"></div>
+                  </div>
+
+                  <div className="h-6 w-full animate-pulse rounded-full bg-zinc-300 mt-4"></div>
+                  <div className="h-4 w-full animate-pulse rounded-full bg-zinc-300 mt-2"></div>
                 </div>
               )}
             </div>
             {/* Background */}
-            <div className=" hidden md:block absolute inset-y-0 left-0 right-1/2 -translate-x-52 -z-0 bg-zinc-200" />
+            <div className=" absolute inset-y-0 left-0 right-1/2 -z-0 hidden -translate-x-52 bg-zinc-200 md:block" />
             {/* Shadow button */}
             <div className="absolute inset-x-0 bottom-0 z-0 h-12 bg-gradient-to-t from-black/10" />
           </div>
