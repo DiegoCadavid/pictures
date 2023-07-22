@@ -37,11 +37,11 @@ const Card = (props: PostWithTagsAndBookmarks) => {
 
   return (
     <article className="group relative w-full overflow-hidden rounded-2xl">
-      <button onClick={navigate}>
+      <button role="link" className="w-full h-full" onClick={navigate}>
         <Image
           src={imageUrl}
           alt="Image"
-          className="w-full"
+          className="w-full h-full"
           style={{
             backgroundColor: imageColorHex,
           }}
